@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite_Goibibo">
+	<listeners>
+		<listener class-name="com.aperture.enterprises.core.ListenerClass"></listener>
+	</listeners>
 	<test thread-count="5" name="Goibibo_Test">
+		<parameter name="browser" value="chrome"></parameter>
 		<parameter name="appUrl" value="https://www.goibibo.com/"></parameter>
+		<parameter name="gridUrl" value="NA"></parameter>
 		<classes>
 			<class name="com.aperture.enterprises.tests.goibibo.scenario1.SearchHotelAndLogTests" />
 			<class name="com.aperture.enterprises.tests.goibibo.scenario2.SearchAndBookHotelTests" />
 			<class name="com.aperture.enterprises.tests.goibibo.scenario3.SearchHotelAndVerifyDetailsTests" />
 			<class name="com.aperture.enterprises.tests.goibibo.scenario4.SearchHotelByFilterTests" />
 		</classes>
-	</test> <!--
-	Test -->
-</suite> <!--
-Suite -->
+	</test> 
+</suite> 
