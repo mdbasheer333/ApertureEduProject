@@ -26,7 +26,9 @@ public class BaseTest {
 	public void tearUp(String appUrl, String browser, String gridUrl) throws MalformedURLException {		
 		switch (browser) {
 		case "chrome":
-			driver = new ChromeDriver();
+			ChromeOptions chromeOptionsLocal = new ChromeOptions();
+			chromeOptionsLocal.addArguments("--disable-notifications");
+			driver = new ChromeDriver(chromeOptionsLocal);
 			break;
 		case "firefox":
 			driver = new FirefoxDriver();

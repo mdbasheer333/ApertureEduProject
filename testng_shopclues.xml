@@ -11,7 +11,9 @@
 		<parameter name="appUrl" value="https://www.shopclues.com/"></parameter>
 		<parameter name="gridUrl" value="NA"></parameter>
 		<classes>
-			<class name="com.aperture.enterprises.tests.shopclues.scenario1.VerifyLoginDialogTests" />
+			<!--<class name="com.aperture.enterprises.tests.shopclues.scenario1.VerifyLoginDialogTests" />-->
+			<!--<class name="com.aperture.enterprises.tests.shopclues.scenario2.SearchProductTests" />-->
+			<class name="com.aperture.enterprises.tests.shopclues.scenario3.SearchProductUsingRobotTests" />
 		</classes>
 	</test> 
 	

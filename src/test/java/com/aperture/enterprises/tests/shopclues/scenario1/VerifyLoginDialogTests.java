@@ -2,34 +2,32 @@ package com.aperture.enterprises.tests.shopclues.scenario1;
 
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.aperture.enterprises.pages.shopclues.SignUpPage;
 import com.aperture.enterprises.tests.BaseTest;
+import com.aperture.enterprises.utils.ExcelReader;
 
 public class VerifyLoginDialogTests extends BaseTest {
 
-	@Test(description = "Search a hotel for one adult and log the hotel's name in TestNG")
-	public void searchForHotelAndLogDetailsTest() throws InterruptedException {
+	@Test(description = "Check the login credentials using various combinations of incorrect input values and verify the error message", dataProvider = "verifyLoginTestDP")
+	public void verifyLoginTest(String data, String expMsg) throws InterruptedException {
 
 		SignUpPage signUpPage = new SignUpPage(driver);
 		signUpPage.getSignInLink().click();
 
-		String errorMsgActual = signUpPage.getErrorMsg("");
-		String errorMsgExp = "Please enter email id or mobile number.";
-		Assert.assertEquals(errorMsgActual, errorMsgExp, "Error message not displayed properly");
-		Reporter.log("Error message displayed properly " + errorMsgExp);
+		String errorMsgActual = signUpPage.getErrorMsg(data);
+		Assert.assertEquals(errorMsgActual, expMsg, "Error message not displayed properly");
+		Reporter.log("Error message displayed properly " + expMsg);
 
-		errorMsgActual = signUpPage.getErrorMsg("465465456");
-		errorMsgExp = "Please enter valid email id or mobile number.";
-		Assert.assertEquals(errorMsgActual, errorMsgExp, "Error message not displayed properly");
-		Reporter.log("Error message displayed properly " + errorMsgExp);
+	}
 
-		errorMsgActual = signUpPage.getErrorMsg("dummy@gmail");
-		errorMsgExp = "Please enter valid email id or mobile number.";
-		Assert.assertEquals(errorMsgActual, errorMsgExp, "Error message not displayed properly");
-		Reporter.log("Error message displayed properly " + errorMsgExp);
-
+	@DataProvider(name = "verifyLoginTestDP")
+	public static Object[][] verifyLoginTestData() {
+		ExcelReader exlReader=new ExcelReader("Login");
+		Object data[][] = exlReader.getAllData();
+		return data;
 	}
 
 }

@@ -34,7 +34,15 @@ public class BasePage {
 	public void waitForEelemnt(By element) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 	}
-
+	
+	
+	public boolean isPresent(WebElement element) {
+		try {
+			return element.isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public void switchToWindowByPartialTitle(String titleName) {
 		String parentWindowName = driver.getWindowHandle();
@@ -51,6 +59,33 @@ public class BasePage {
 			driver.switchTo().window(parentWindowName);
 			throw new RuntimeException("window not found with title " + titleName);
 		}
+	}
+	
+	public void switchToWindowByPartialTitleStartsWith(String titleName) {
+		String parentWindowName = driver.getWindowHandle();
+		Set<String> allWin = driver.getWindowHandles();
+		boolean found = false;
+		for (String eachWin : allWin) {
+			driver.switchTo().window(eachWin);
+			if (driver.getTitle().startsWith(titleName)) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			driver.switchTo().window(parentWindowName);
+			throw new RuntimeException("window not found with title " + titleName);
+		}
+	}
+	
+	public void switchToWindowByIndex(int pos) {
+		String parentWindowName = driver.getWindowHandle();
+		Set<String> allWin = driver.getWindowHandles();
+		if (pos>allWin.size()) {
+			driver.switchTo().window(parentWindowName);
+			throw new RuntimeException("window not found with pos " + pos);
+		}
+		driver.switchTo().window(allWin.toArray()[pos].toString());		
 	}
 
 	public void selectByText(WebElement element, String value) {
